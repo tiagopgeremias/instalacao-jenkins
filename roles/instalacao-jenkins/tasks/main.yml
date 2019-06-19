@@ -1,0 +1,21 @@
+---
+- name: Adicionando repositorio Jenkins
+  get_url:
+    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+
+- name: Obtendo a chave do Jenkins
+  rpm_key:
+    state: present
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+- name: Instalando o Jenkins
+  yum:
+    name: jenkins
+    state: present
+
+- name: Habilitando o servico do Jenkins
+  service:
+    name: jenkins
+    enabled: yes
+    state: started
